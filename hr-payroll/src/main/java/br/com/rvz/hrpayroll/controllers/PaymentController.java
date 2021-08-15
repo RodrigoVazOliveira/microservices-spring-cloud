@@ -13,13 +13,13 @@ import br.com.rvz.hrpayroll.services.PaymentService;
 @RestController
 @RequestMapping("/payments/")
 public class PaymentController {
-	
+
 	private final PaymentService paymentService;
 
 	public PaymentController(PaymentService paymentService) {
 		this.paymentService = paymentService;
 	}
-	
+
 	@GetMapping(value = "/{workerId}/days/{days}/")
 	@ResponseStatus(HttpStatus.OK)
 	public Payment getPayment(@PathVariable(name = "workerId") Long workerId, @PathVariable(name = "days") Integer days) {
