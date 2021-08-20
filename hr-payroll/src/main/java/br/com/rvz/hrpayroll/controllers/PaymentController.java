@@ -1,9 +1,10 @@
 package br.com.rvz.hrpayroll.controllers;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rvz.hrpayroll.entities.Payment;
@@ -22,16 +23,17 @@ public class PaymentController {
 	
 	@CircuitBreaker(name = "hr-worker", fallbackMethod = "getPaymentsAlternative")
 	@GetMapping(value = "/{workerId}/days/{days}/")
-	public ResponseEntity<Payment> getPayment(@PathVariable(name = "workerId") Long workerId, @PathVariable(name = "days") Integer days) {
-		return ResponseEntity.ok(paymentService.getPayment(workerId, days));
+	@ResponseStatus(HttpStatus.OK)
+	public Payment getPayment(@PathVariable(name = "workerId") Long workerId, @PathVariable(name = "days") Integer days) {
+		return paymentService.getPayment(workerId, days);
 	}
 	
-	public ResponseEntity<Payment> getPaymentsAlternative(Long workerId, Integer days, RuntimeException ex) {
+	public Payment getPaymentsAlternative(Long workerId, Integer days, RuntimeException ex) {
 		Payment payment = new Payment();
 		payment.setName("NoName");
 		payment.setDailyincome(1.0);
 		payment.setDays(1);
 		
-		return ResponseEntity.ok(payment);	
+		return payment;	
 	}
 }
