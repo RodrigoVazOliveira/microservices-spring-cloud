@@ -16,3 +16,10 @@ spring:
       enabled: true
   jpa:
     defer-datasource-initialization: true
+  cloud:
+    config:
+      uri: http://localhost:8888
+  config:
+    import: "optional:configserver:"
+  profiles:
+    active: test
