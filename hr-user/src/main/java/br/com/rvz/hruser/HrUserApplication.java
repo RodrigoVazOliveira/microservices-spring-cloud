@@ -11,5 +11,4 @@ public class HrUserApplication {
     public static void main(String[] args) {
         SpringApplication.run(HrUserApplication.class, args);
     }
-
 }
