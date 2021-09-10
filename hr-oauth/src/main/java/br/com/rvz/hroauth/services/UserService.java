@@ -26,4 +26,15 @@ public class UserService {
 
         return user;
     }
+
+    public User findById(Long id) {
+        User user = userFeignClient.findById(id);
+
+        if (user == null) {
+            log.error("findById id: {}", id);
+            throw new IllegalArgumentException("Usuário com id " + id + " náo foi localizado!");
+        }
+
+        return user;
+    }
 }

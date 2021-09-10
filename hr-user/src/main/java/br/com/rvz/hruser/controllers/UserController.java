@@ -32,6 +32,12 @@ public class UserController {
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
     public User pesquisarUsuarioPorEmail(@RequestParam(name = "email") String email) {
-        return userRepository.findByEmail(email);
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isEmpty()) {
+            return new User();
+        }
+
+        return optionalUser.get();
     }
 }
