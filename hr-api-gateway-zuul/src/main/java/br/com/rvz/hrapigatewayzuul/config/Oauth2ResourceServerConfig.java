@@ -15,7 +15,7 @@ public class Oauth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
     private final JwtTokenStore jwtTokenStore;
     private static final String[] PUBLIC = { "/hr-oauth/oauth/token" };
     private static final String[] OPERATOR = { "/hr-worker/**" };
-    private static final String[] ADMIN = { "/hr-payroll/**", "/hr-user/**" };
+    private static final String[] ADMIN = { "/hr-payroll/**", "/hr-user/**",  "/hr-worker/actuator/**", "/actuator/**", "/hr-ouath/actuator/**"};
 
     public Oauth2ResourceServerConfig(JwtTokenStore jwtTokenStore) {
         this.jwtTokenStore = jwtTokenStore;

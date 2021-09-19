@@ -1,5 +1,6 @@
 package br.com.rvz.hroauth.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +21,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final JwtTokenStore jwtTokenStore;
     private final AuthenticationManager authenticationManager;
 
+    @Value("${ouath.client.name}")
+    private String clientName;
+
+    @Value("${ouath.client.secret}")
+    private String clientSecret;
+
+
     public AuthorizationServerConfig(BCryptPasswordEncoder bCryptPasswordEncoder, JwtAccessTokenConverter jwtAccessTokenConverter,
                                      JwtTokenStore jwtTokenStore, AuthenticationManager authenticationManager) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -36,8 +44,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("myappname123")
-                .secret(bCryptPasswordEncoder.encode("myappsecret123"))
+                .withClient(clientName)
+                .secret(bCryptPasswordEncoder.encode(clientSecret))
                 .scopes("read", "write")
                 .authorizedGrantTypes("password")
                 .accessTokenValiditySeconds(86400);
