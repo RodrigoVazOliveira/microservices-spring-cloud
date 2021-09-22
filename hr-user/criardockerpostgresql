@@ -1,0 +1,1 @@
+udo docker run -p 5433:5432 --name hr-user-postgresql --network=rh-rede-principal -e POSTGRES_USER=hr_user -e POSTGRES_PASSWORD=hr_user -e POSTGRES_DB=hr_user postgres:12-alpine
